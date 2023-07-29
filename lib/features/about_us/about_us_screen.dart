@@ -1,4 +1,4 @@
-import 'package:app/application_constants.dart';
+import 'package:app/core/constants/application_constants.dart';
 import 'package:flutter/material.dart';
 
 class AboutUsScreen extends StatelessWidget {

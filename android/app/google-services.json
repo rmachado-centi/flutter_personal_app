@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "274740696932",
+    "project_id": "garbo-dcb3a",
+    "storage_bucket": "garbo-dcb3a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:274740696932:android:c239e53ddf5f693e44cc71",
+        "android_client_info": {
+          "package_name": "com.example.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "274740696932-fbjoattue0111iqpud0okcir68k2m353.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbvVk6FIkpxnu5NPeqgDi5RUuLTuMEEUk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "274740696932-fbjoattue0111iqpud0okcir68k2m353.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "274740696932-fuunqsofspseua5236u2sr3i0la6637j.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
