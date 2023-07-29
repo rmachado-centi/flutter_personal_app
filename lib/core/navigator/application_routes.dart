@@ -4,4 +4,6 @@ class ApplicationRoutes {
   static const registrationScreen = 'registration-screen';
   static const aboutUsScreen = 'about-us-screen';
   static const contactsScreen = 'contacts-screen';
+  static const forgotPasswordScreen = 'forgot-password-screen';
+  static const resetPasswordScreen = 'reset-password-screen';
 }

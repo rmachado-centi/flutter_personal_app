@@ -3,12 +3,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  final FirebaseAuth firebaseAuth;
+  const AuthRepositoryImpl({required this.firebaseAuth});
 
   @override
   Future<bool> signInWithEmailAndPassword(String email, String password) async {
     try {
-      final userCredential = await _firebaseAuth.signInWithEmailAndPassword(
+      final userCredential = await firebaseAuth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -20,13 +21,13 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<void> signOut() async {
-    await _firebaseAuth.signOut();
+    await firebaseAuth.signOut();
   }
 
   @override
   Future<bool> checkAuthentication() async {
     try {
-      final user = _firebaseAuth.currentUser;
+      final user = firebaseAuth.currentUser;
       return user != null;
     } catch (e) {
       // Handle any exceptions that occur during the check
@@ -55,7 +56,7 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<String?> getUserUUID() async {
     try {
-      final user = _firebaseAuth.currentUser;
+      final user = firebaseAuth.currentUser;
       return user?.uid;
     } catch (e) {
       // Handle any exceptions that occur during UUID retrieval
@@ -67,7 +68,7 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<String?> getUserEmail() async {
     try {
-      final user = _firebaseAuth.currentUser;
+      final user = firebaseAuth.currentUser;
       return user?.email;
     } catch (e) {
       // Handle any exceptions that occur during email retrieval
@@ -97,7 +98,7 @@ class AuthRepositoryImpl implements AuthRepository {
     required String username,
   }) async {
     try {
-      final userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
+      final userCredential = await firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password);
 
       // Create a new document in the users collection with the uid
@@ -114,6 +115,31 @@ class AuthRepositoryImpl implements AuthRepository {
       return userCredential.user != null;
     } catch (e) {
       // Handle any exceptions that occur during registration
+      // You can show an error message here if required
+      return false;
+    }
+  }
+
+  @override
+  Future<bool> sendPasswordResetEmail(String email) async {
+    try {
+      await firebaseAuth.sendPasswordResetEmail(email: email);
+      return true;
+    } catch (e) {
+      // Handle any exceptions that occur during password reset
+      // You can show an error message here if required
+      return false;
+    }
+  }
+
+  @override
+  Future<bool> updatePassword(String code, String newPassword) async {
+    try {
+      await firebaseAuth.confirmPasswordReset(
+          code: code, newPassword: newPassword);
+      return true;
+    } catch (e) {
+      // Handle any exceptions that occur during password reset confirmation
       // You can show an error message here if required
       return false;
     }

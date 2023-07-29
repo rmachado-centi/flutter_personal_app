@@ -11,4 +11,7 @@ abstract class AuthRepository {
     required String password,
     required String username,
   });
+
+  Future<bool> sendPasswordResetEmail(String email);
+  Future<bool> updatePassword(String code, String password);
 }

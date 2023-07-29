@@ -93,14 +93,24 @@ class _AuthScreenState extends State<AuthScreen> {
                             ),
                           ),
                           const SizedBox(
-                            height: 40,
+                            height: defaultPadding,
                           ),
-                          const Text(
-                            "Forgot Password?",
-                            style: TextStyle(color: Colors.grey),
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: TextButton(
+                              onPressed: () {
+                                _navigateToForgotPasswordScreen();
+                              },
+                              child: const Text(
+                                "Esqueceu-se da sua senha?",
+                                style: TextStyle(
+                                    color: Colors.black54,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
                           ),
                           const SizedBox(
-                            height: 40,
+                            height: defaultPadding,
                           ),
                           Button(
                             onPressed: () => _signIn(),
@@ -112,7 +122,8 @@ class _AuthScreenState extends State<AuthScreen> {
                             child: const Text(
                               'Não possui uma conta? Clique aqui!',
                               style: TextStyle(
-                                color: Colors.grey,
+                                color: Colors.black54,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                           ),
@@ -127,6 +138,10 @@ class _AuthScreenState extends State<AuthScreen> {
         ),
       ),
     );
+  }
+
+  void _navigateToForgotPasswordScreen() {
+    Navigator.of(context).pushNamed(ApplicationRoutes.forgotPasswordScreen);
   }
 
   void _signIn() {
