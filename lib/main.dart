@@ -1,6 +1,6 @@
 import 'package:app/core/blocs/application_cubit_observer.dart';
 import 'package:app/core/navigator/router_navigator.dart';
-import 'package:app/features/auth/presentation/user_interfaces/login_screen.dart';
+import 'package:app/features/splash/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
               color: Colors.black54,
             ),
           )),
-      home: const AuthScreen(),
+      home: const SplashScreen(),
       navigatorKey: RouterNavigator.navigatorKey,
       navigatorObservers: [RouterNavigator.routeObserver],
       onGenerateRoute: RouterNavigator.generateRoute,

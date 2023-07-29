@@ -43,14 +43,14 @@ class _DrawerBodyState extends State<DrawerBody> {
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, ApplicationState>(
       bloc: homeCubit,
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is HomeSignOutSuccessState) {
+          _navigateToAuthScreen();
+        }
+      },
       builder: (context, state) {
         if (state is HomeUserDataSuccessState) {
           user = state.user;
-        }
-
-        if (state is HomeSignOutSuccessState) {
-          _navigateToAuthScreen();
         }
 
         return Padding(
