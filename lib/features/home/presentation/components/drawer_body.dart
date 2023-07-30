@@ -121,6 +121,7 @@ class _DrawerBodyState extends State<DrawerBody> {
                   ),
                   Expanded(
                     child: ListView(
+                      physics: const NeverScrollableScrollPhysics(),
                       children: [
                         ListTile(
                           onTap: () {},
