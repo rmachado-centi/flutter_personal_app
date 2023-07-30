@@ -10,7 +10,7 @@ import 'core/firebase/firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  //FlutterBranchSdk.validateSDKIntegration();
+  FlutterBranchSdk.validateSDKIntegration();
   Bloc.observer = ApplicationCubitObserver();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
