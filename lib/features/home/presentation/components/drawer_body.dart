@@ -195,7 +195,10 @@ class _DrawerBodyState extends State<DrawerBody> {
                           height: 16,
                         ),
                         ListTile(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.of(context)
+                                .pushNamed(ApplicationRoutes.contactsScreen);
+                          },
                           leading: Container(
                             padding: const EdgeInsets.all(8),
                             decoration: BoxDecoration(

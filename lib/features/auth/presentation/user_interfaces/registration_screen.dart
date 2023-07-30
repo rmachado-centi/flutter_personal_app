@@ -1,7 +1,7 @@
 import 'package:app/core/blocs/cubit_factory.dart';
 import 'package:app/core/navigator/application_routes.dart';
 import 'package:app/features/auth/presentation/business_components/auth_cubit.dart';
-import 'package:app/features/auth/presentation/components/button.dart';
+import 'package:app/core/components/garbo_button.dart';
 import 'package:app/features/auth/presentation/components/header.dart';
 import 'package:app/features/auth/presentation/components/input_fields.dart';
 import 'package:flutter/material.dart';
@@ -88,7 +88,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(10)),
                             child: InputFields(
-                              inputFieldType: InputFieldType.registration,
+                              authType: AuthType.registration,
                               usernameController: usernameController,
                               emailController: emailController,
                               passwordController: passwordController,
@@ -97,7 +97,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           const SizedBox(
                             height: 40,
                           ),
-                          Button(
+                          GarboButton(
                             onPressed: () => _signIn(),
                             text: 'Registar',
                             isLoading: state == AuthStatus.registering,

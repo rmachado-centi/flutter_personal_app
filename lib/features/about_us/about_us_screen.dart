@@ -17,6 +17,8 @@ class AboutUsScreen extends StatelessWidget {
             'Sobre Nós',
             style: TextStyle(
               color: Colors.black54,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
             ),
           ),
         ),

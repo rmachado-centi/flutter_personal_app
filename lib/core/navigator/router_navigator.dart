@@ -1,4 +1,5 @@
 import 'package:app/core/navigator/application_routes.dart';
+import 'package:app/features/contacts/presentation/user_interfaces/contacts_screen.dart';
 import 'package:app/features/forgot_password/presentation/user_interfaces/forgot_password_screen.dart';
 import 'package:app/features/home/presentation/user_interfaces/home_screen.dart';
 import 'package:app/features/auth/presentation/user_interfaces/login_screen.dart';
@@ -39,7 +40,7 @@ class RouterNavigator {
 
       case ApplicationRoutes.contactsScreen:
         return MaterialPageRoute(
-          builder: (_) => const HomeScreen(),
+          builder: (_) => const ContactsScreen(),
           settings: settings,
         );
       case ApplicationRoutes.forgotPasswordScreen:

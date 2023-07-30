@@ -1,11 +1,11 @@
 import 'package:app/core/constants/application_constants.dart';
 import 'package:flutter/material.dart';
 
-class Button extends StatelessWidget {
+class GarboButton extends StatelessWidget {
   final String text;
-  final VoidCallback onPressed;
-  bool isLoading;
-  Button(
+  final VoidCallback? onPressed;
+  final bool isLoading;
+  const GarboButton(
       {Key? key,
       required this.text,
       required this.onPressed,
@@ -13,17 +13,18 @@ class Button extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-        onPressed: onPressed,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.cyan,
-          elevation: 0,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(32.0),
+    return SizedBox(
+      width: double.infinity,
+      height: 48,
+      child: ElevatedButton(
+          onPressed: onPressed,
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.cyan,
+            textStyle: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
           ),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(defaultPadding),
           child: isLoading
               ? const CircularProgressIndicator(
                   color: Colors.white,
@@ -34,7 +35,7 @@ class Button extends StatelessWidget {
                     color: Colors.white,
                     fontSize: 16,
                   ),
-                ),
-        ));
+                )),
+    );
   }
 }

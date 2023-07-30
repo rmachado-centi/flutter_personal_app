@@ -2,7 +2,7 @@ import 'package:app/core/blocs/cubit_factory.dart';
 import 'package:app/core/constants/application_constants.dart';
 import 'package:app/core/navigator/application_routes.dart';
 import 'package:app/features/auth/presentation/business_components/auth_cubit.dart';
-import 'package:app/features/auth/presentation/components/button.dart';
+import 'package:app/core/components/garbo_button.dart';
 import 'package:app/features/auth/presentation/components/header.dart';
 import 'package:app/features/auth/presentation/components/input_fields.dart';
 import 'package:flutter/material.dart';
@@ -87,7 +87,7 @@ class _AuthScreenState extends State<AuthScreen> {
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(10)),
                             child: InputFields(
-                              inputFieldType: InputFieldType.login,
+                              authType: AuthType.login,
                               emailController: emailController,
                               passwordController: passwordController,
                             ),
@@ -112,7 +112,7 @@ class _AuthScreenState extends State<AuthScreen> {
                           const SizedBox(
                             height: defaultPadding,
                           ),
-                          Button(
+                          GarboButton(
                             onPressed: () => _signIn(),
                             text: 'Login',
                             isLoading: state == AuthStatus.authenticating,
