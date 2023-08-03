@@ -2,7 +2,7 @@
     package="com.example.app">
     <uses-permission android:name="android.permission.INTERNET" />
    <application
-        android:label="app"
+        android:label="Garbo"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
@@ -38,7 +38,10 @@
                 <data android:scheme="https" android:host="garbo-store.test-app.link" />
                 <data android:scheme="https" android:host="garbo-store-alternate.test-app.link" />
             </intent-filter>
+
+
         </activity>
+
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
         <meta-data
@@ -52,4 +55,14 @@
         <meta-data android:name="io.branch.sdk.TestMode" android:value="false" />     <!-- Set to true to use Branch_Test_Key (useful when simulating installs and/or switching between debug and production flavors) -->
 
     </application>
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="https" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.SEND" />
+            <data android:mimeType="*/*" />
+        </intent>
+    </queries>
 </manifest>

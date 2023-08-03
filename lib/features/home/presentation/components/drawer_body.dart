@@ -4,6 +4,7 @@ import 'package:app/core/constants/application_constants.dart';
 import 'package:app/core/data/models/user_model.dart';
 import 'package:app/core/navigator/application_routes.dart';
 import 'package:app/features/home/presentation/business_components/home_cubit.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -18,6 +19,7 @@ class DrawerBody extends StatefulWidget {
 
 class _DrawerBodyState extends State<DrawerBody> {
   final homeCubit = CubitFactory.homeCubit;
+  final bool visible = false;
 
   UserModel? user;
 
@@ -34,7 +36,7 @@ class _DrawerBodyState extends State<DrawerBody> {
   }
 
   void _navigateToAuthScreen() {
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       Navigator.of(context).pushReplacementNamed(ApplicationRoutes.authScreen);
     });
   }
@@ -45,6 +47,7 @@ class _DrawerBodyState extends State<DrawerBody> {
       bloc: homeCubit,
       listener: (context, state) {
         if (state is HomeSignOutSuccessState) {
+          FirebaseAnalytics.instance.logEvent(name: 'sign_out');
           _navigateToAuthScreen();
         }
       },
@@ -59,6 +62,7 @@ class _DrawerBodyState extends State<DrawerBody> {
           child: Stack(
             children: [
               Column(
+                mainAxisSize: MainAxisSize.max,
                 children: [
                   Row(
                     children: [
@@ -119,83 +123,94 @@ class _DrawerBodyState extends State<DrawerBody> {
                   const SizedBox(
                     height: 48,
                   ),
-                  Expanded(
-                    child: ListView(
-                      physics: const NeverScrollableScrollPhysics(),
-                      children: [
-                        ListTile(
-                          onTap: () {},
-                          leading: Container(
-                            padding: const EdgeInsets.all(8),
-                            decoration: BoxDecoration(
-                              color: Colors.grey.shade200,
-                              borderRadius: BorderRadius.circular(8),
+                  ListView(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    children: [
+                      Visibility(
+                        visible: visible,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: ListTile(
+                            onTap: () {},
+                            leading: Container(
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                color: Colors.grey.shade200,
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: const Icon(
+                                Icons.wallet,
+                                color: Colors.black54,
+                              ),
                             ),
-                            child: const Icon(
-                              Icons.wallet,
-                              color: Colors.black54,
-                            ),
-                          ),
-                          title: const Text(
-                            'Carteira',
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: Colors.black54,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        ListTile(
-                          onTap: () {},
-                          leading: Container(
-                            padding: const EdgeInsets.all(8),
-                            decoration: BoxDecoration(
-                              color: Colors.grey.shade200,
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: const Icon(
-                              Icons.shopping_bag,
-                              color: Colors.black54,
-                            ),
-                          ),
-                          title: const Text(
-                            'Encomendas',
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: Colors.black54,
+                            title: const Text(
+                              'Carteira',
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.black54,
+                              ),
                             ),
                           ),
                         ),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        ListTile(
-                          onTap: () {},
-                          leading: Container(
-                            padding: const EdgeInsets.all(8),
-                            decoration: BoxDecoration(
-                              color: Colors.grey.shade200,
-                              borderRadius: BorderRadius.circular(8),
+                      ),
+                      Visibility(
+                        visible: visible,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: ListTile(
+                            onTap: () {},
+                            leading: Container(
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                color: Colors.grey.shade200,
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: const Icon(
+                                Icons.shopping_bag,
+                                color: Colors.black54,
+                              ),
                             ),
-                            child: const Icon(
-                              Icons.favorite,
-                              color: Colors.black54,
+                            title: const Text(
+                              'Encomendas',
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.black54,
+                              ),
                             ),
                           ),
-                          title: const Text(
-                            'Favoritos',
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: Colors.black54,
+                        ),
+                      ),
+                      Visibility(
+                        visible: visible,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: ListTile(
+                            onTap: () {},
+                            leading: Container(
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                color: Colors.grey.shade200,
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: const Icon(
+                                Icons.favorite,
+                                color: Colors.black54,
+                              ),
+                            ),
+                            title: const Text(
+                              'Favoritos',
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.black54,
+                              ),
                             ),
                           ),
                         ),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        ListTile(
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: ListTile(
                           onTap: () {
                             Navigator.of(context)
                                 .pushNamed(ApplicationRoutes.contactsScreen);
@@ -212,17 +227,17 @@ class _DrawerBodyState extends State<DrawerBody> {
                             ),
                           ),
                           title: const Text(
-                            'Contactos',
+                            'Contatos',
                             style: TextStyle(
                               fontSize: 16,
                               color: Colors.black54,
                             ),
                           ),
                         ),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        ListTile(
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: ListTile(
                           onTap: () {
                             Navigator.of(context)
                                 .pushNamed(ApplicationRoutes.aboutUsScreen);
@@ -246,35 +261,50 @@ class _DrawerBodyState extends State<DrawerBody> {
                             ),
                           ),
                         ),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        ListTile(
-                          onTap: () {},
-                          leading: Container(
-                            padding: const EdgeInsets.all(8),
-                            decoration: BoxDecoration(
-                              color: Colors.grey.shade200,
-                              borderRadius: BorderRadius.circular(8),
+                      ),
+                      Visibility(
+                        visible: visible,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: ListTile(
+                            onTap: () {},
+                            leading: Container(
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                color: Colors.grey.shade200,
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: const Icon(
+                                Icons.settings,
+                                color: Colors.black54,
+                              ),
                             ),
-                            child: const Icon(
-                              Icons.settings,
-                              color: Colors.black54,
+                            title: const Text(
+                              'Definições',
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.black54,
+                              ),
                             ),
                           ),
-                          title: const Text(
-                            'Definições',
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: Colors.black54,
-                            ),
-                          ),
                         ),
-                        const SizedBox(
-                          height: 64,
-                        ),
-                        ListTile(
-                          onTap: () => homeCubit.signOut(),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: ListTile(
+                          onTap: () => showDialog(context: context, builder: (context){
+                            return AlertDialog(actionsAlignment: MainAxisAlignment.spaceEvenly,
+                              title: const Text('Terminar Sessão', style: TextStyle(color: Colors.black54), textAlign: TextAlign.center,),
+                              content: const Text('Tem a certeza que deseja terminar a sessão?', style: TextStyle(color: Colors.black54),),
+                              actions: [
+                                ElevatedButton(onPressed: () => Navigator.of(context).pop(),style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.grey,
+                                  elevation: 0,
+                                ), child: const Text('Não', style: TextStyle(color: Colors.white),)),
+                                TextButton(onPressed: ()  => homeCubit.signOut(), child: const Text('Sim', style: TextStyle(color: Colors.redAccent),)),
+                              ],
+                            );
+                          }),
                           leading: Container(
                             padding: const EdgeInsets.all(8),
                             decoration: BoxDecoration(
@@ -294,38 +324,22 @@ class _DrawerBodyState extends State<DrawerBody> {
                             ),
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   )
                 ],
               ),
-              Positioned(
+              const Positioned(
                 bottom: 0,
                 left: 16,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Text(
-                      'Garbo',
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        fontStyle: FontStyle.italic,
-                        color: Colors.black54,
-                      ),
-                    ),
-                    SizedBox(
-                      width: 8,
-                    ),
-                    Text(
-                      'Version 1.0.0',
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.black54,
-                      ),
-                    ),
-                  ],
+                child: Text(
+                  'Garbo',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    fontStyle: FontStyle.italic,
+                    color: Colors.black54,
+                  ),
                 ),
               )
             ],

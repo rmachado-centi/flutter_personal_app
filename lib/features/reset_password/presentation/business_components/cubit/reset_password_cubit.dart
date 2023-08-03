@@ -1,7 +1,6 @@
 import 'package:app/core/blocs/application_state.dart';
 import 'package:app/features/reset_password/domain/use_cases/reset_password_use_case.dart';
-import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'reset_password_state.dart';
 

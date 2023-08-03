@@ -5,6 +5,7 @@ import 'package:app/features/auth/presentation/business_components/auth_cubit.da
 import 'package:app/core/components/garbo_button.dart';
 import 'package:app/features/auth/presentation/components/header.dart';
 import 'package:app/features/auth/presentation/components/input_fields.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -41,7 +42,16 @@ class _AuthScreenState extends State<AuthScreen> {
             if (state == AuthStatus.authenticated) {
               // Navigate to the next screen after successful authentication.
               // Example: return HomePage();
+              FirebaseAnalytics.instance.logLogin(loginMethod: 'email');
               _navigateToHomeScreen();
+            }
+            if(state == AuthStatus.authenticationFailed){
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('Falha na autenticação'),
+                  backgroundColor: Colors.red,
+                ),
+              );
             }
           },
           builder: (context, state) {

@@ -33,6 +33,8 @@ class GarboInputField extends StatelessWidget {
               ? TextInputType.name
               : TextInputType.text,
       autocorrect: false,
+      minLines: inputFieldType == InputFieldType.message ? 4 : 1,
+      maxLines: inputFieldType == InputFieldType.message ? 5:1,
       cursorHeight: 24,
       cursorColor: Colors.grey,
       obscureText: inputFieldType == InputFieldType.password ? true : false,
@@ -49,9 +51,11 @@ class GarboInputField extends StatelessWidget {
       },
       decoration: InputDecoration(
         labelText: labelText,
-        focusedBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.grey),
-        ),
+        border: inputFieldType == InputFieldType.message
+            ? const OutlineInputBorder()
+            : const UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.grey),
+              ),
         labelStyle: const TextStyle(color: Colors.grey),
       ),
     );

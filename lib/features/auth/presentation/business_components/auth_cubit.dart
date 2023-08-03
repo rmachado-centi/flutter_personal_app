@@ -1,14 +1,13 @@
-import 'dart:math';
-
-import 'package:app/core/data/models/user_model.dart';
 import 'package:app/features/auth/domain/use_cases/auth_use_case.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 enum AuthStatus {
   initial,
+  authenticationFailed,
   authenticated,
   unauthenticated,
   authenticating,
+  registrationFailed,
   registering,
   registered
 }
@@ -47,6 +46,7 @@ class AuthCubit extends Cubit<AuthStatus> {
       if (isSignedIn) {
         emit(AuthStatus.authenticated);
       } else {
+        emit(AuthStatus.authenticationFailed);
         // Authentication failed
         // You can show an error message here if required
       }
@@ -84,6 +84,7 @@ class AuthCubit extends Cubit<AuthStatus> {
       if (isRegistered) {
         emit(AuthStatus.registered);
       } else {
+        emit(AuthStatus.registrationFailed);
         // Registration failed
         // You can show an error message here if required
       }

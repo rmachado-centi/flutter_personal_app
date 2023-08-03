@@ -42,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen>
   }
 
   void _navigateToAuthScreen() {
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       Navigator.of(context).pushReplacementNamed(ApplicationRoutes.authScreen);
     });
   }
@@ -54,7 +54,6 @@ class _HomeScreenState extends State<HomeScreen>
     return BlocConsumer<AuthCubit, AuthStatus>(
       bloc: authCubit,
       listener: (context, state) {
-        // TODO: implement listener
         if (state == AuthStatus.unauthenticated) {
           _navigateToAuthScreen();
         }
@@ -116,51 +115,56 @@ class _HomeScreenState extends State<HomeScreen>
                             ),
                             centerTitle: true,
                             actions: [
-                              IconButton(
-                                onPressed: () {},
-                                icon: const Icon(
-                                  Icons.notifications,
-                                  color: Colors.black54,
+                              Visibility(
+                                visible: false,
+                                child: IconButton(
+                                  onPressed: () {},
+                                  icon: const Icon(
+                                    Icons.notifications,
+                                    color: Colors.black54,
+                                  ),
                                 ),
                               ),
                             ],
                           ),
-                          body: Padding(
-                            padding: const EdgeInsets.all(defaultPadding),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                const Text(
-                                  'Alguns artigos',
-                                  style: TextStyle(
-                                    fontSize: 32,
+                          body: SingleChildScrollView(
+                            child: Padding(
+                              padding: const EdgeInsets.all(defaultPadding),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  const Text(
+                                    'Alguns artigos',
+                                    style: TextStyle(
+                                      fontSize: 32,
+                                    ),
                                   ),
-                                ),
-                                const SizedBox(
-                                  height: defaultPadding,
-                                ),
-                                const Text('Vários desportos',
-                                    style: TextStyle(fontSize: 22)),
-                                const SizedBox(
-                                  height: defaultPadding,
-                                ),
-                                GarboSlider(items: firstSliderMocks),
-                                const SizedBox(
-                                  height: defaultPadding,
-                                ),
-                                const Text(
-                                  'Sport Wear',
-                                  style: TextStyle(fontSize: 22),
-                                ),
-                                const SizedBox(
-                                  height: defaultPadding,
-                                ),
-                                GarboSlider(items: secondSliderMocks),
-                                const Text(
-                                  'Bordados, transfers e serigrafia disponíveis em todos os artigos',
-                                  style: TextStyle(fontSize: 14),
-                                ),
-                              ],
+                                  const SizedBox(
+                                    height: defaultPadding,
+                                  ),
+                                  const Text('Vários desportos',
+                                      style: TextStyle(fontSize: 22)),
+                                  const SizedBox(
+                                    height: defaultPadding,
+                                  ),
+                                  GarboSlider(items: firstSliderMocks),
+                                  const SizedBox(
+                                    height: defaultPadding,
+                                  ),
+                                  const Text(
+                                    'Sport Wear',
+                                    style: TextStyle(fontSize: 22),
+                                  ),
+                                  const SizedBox(
+                                    height: defaultPadding,
+                                  ),
+                                  GarboSlider(items: secondSliderMocks),
+                                  const Text(
+                                    'Bordados, transfers e serigrafia disponíveis em todos os artigos',
+                                    style: TextStyle(fontSize: 14),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),

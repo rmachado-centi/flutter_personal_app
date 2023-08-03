@@ -6,6 +6,7 @@ import 'package:app/core/blocs/cubit_factory.dart';
 import 'package:app/core/constants/application_constants.dart';
 import 'package:app/core/navigator/application_routes.dart';
 import 'package:app/features/forgot_password/presentation/business_components/cubit/forgot_password_cubit.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_branch_sdk/flutter_branch_sdk.dart';
@@ -75,6 +76,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
       listener: (context, state) {
         if (state is ForgotPasswordEmailSentState) {
           if (state.emailSentStatus) {
+            FirebaseAnalytics.instance.logEvent(
+              name: 'forgot_password_email_sent',
+            );
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 backgroundColor: Colors.green,
@@ -82,6 +86,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               ),
             );
           } else {
+            FirebaseAnalytics.instance.logEvent(
+              name: 'forgot_password_email_not_sent',
+            );
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 backgroundColor: Colors.red,

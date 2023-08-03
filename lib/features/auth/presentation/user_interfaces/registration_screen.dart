@@ -1,9 +1,9 @@
 import 'package:app/core/blocs/cubit_factory.dart';
-import 'package:app/core/navigator/application_routes.dart';
 import 'package:app/features/auth/presentation/business_components/auth_cubit.dart';
 import 'package:app/core/components/garbo_button.dart';
 import 'package:app/features/auth/presentation/components/header.dart';
 import 'package:app/features/auth/presentation/components/input_fields.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -42,7 +42,16 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             if (state == AuthStatus.registered) {
               // Navigate to the next screen after successful authentication.
               // Example: return HomePage();
+              FirebaseAnalytics.instance.logSignUp(signUpMethod: 'email');
               _navigateToLoginScreen();
+            }
+            if(state == AuthStatus.registrationFailed){
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('Falha no registo'),
+                  backgroundColor: Colors.red,
+                ),
+              );
             }
           },
           builder: (context, state) {
@@ -107,7 +116,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             child: const Text(
                               'Já possui uma conta? Clique aqui!',
                               style: TextStyle(
-                                color: Colors.grey,
+                                color: Colors.black54,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                           ),

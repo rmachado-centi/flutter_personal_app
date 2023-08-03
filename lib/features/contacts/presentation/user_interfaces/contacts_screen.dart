@@ -3,8 +3,10 @@ import 'dart:developer';
 import 'package:app/core/components/garbo_input_field.dart';
 import 'package:app/core/constants/application_constants.dart';
 import 'package:app/core/components/garbo_button.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:maps_launcher/maps_launcher.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ContactsScreen extends StatefulWidget {
   const ContactsScreen({super.key});
@@ -14,11 +16,29 @@ class ContactsScreen extends StatefulWidget {
 }
 
 class _ContactsScreenState extends State<ContactsScreen> {
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
   final TextEditingController _subjectController = TextEditingController();
   final TextEditingController _messageController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+
+
+  void _sendEmail() async {
+    final Uri emailUri = Uri(
+      scheme: 'mailto',
+      path: 'reuban02@gmail.com', // Change this to the recipient's email address
+      queryParameters: {
+        'subject': _subjectController.text,
+        'body': _messageController.text,
+      },
+    );
+
+    if (await canLaunchUrl(emailUri)) {
+      await launchUrl(emailUri).whenComplete(() => FirebaseAnalytics.instance.logEvent(name: 'send_contact_message'));
+    } else {
+      // Handle error
+      log('Could not launch email.');
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -61,20 +81,6 @@ class _ContactsScreenState extends State<ContactsScreen> {
                     child: Column(
                       children: [
                         GarboInputField(
-                          key: const Key('nameField'),
-                          inputController: _nameController,
-                          labelText: "Nome",
-                          inputFieldType: InputFieldType.username,
-                        ),
-                        const SizedBox(height: defaultPadding),
-                        GarboInputField(
-                          key: const Key('emailField'),
-                          inputController: _emailController,
-                          labelText: "Email",
-                          inputFieldType: InputFieldType.email,
-                        ),
-                        const SizedBox(height: defaultPadding),
-                        GarboInputField(
                           key: const Key('subjectField'),
                           inputController: _subjectController,
                           labelText: "Assunto",
@@ -85,17 +91,14 @@ class _ContactsScreenState extends State<ContactsScreen> {
                           key: const Key('messageField'),
                           inputController: _messageController,
                           labelText: "Mensagem",
-                          inputFieldType: InputFieldType.username,
+                          inputFieldType: InputFieldType.message,
                         ),
                         const SizedBox(height: 32),
                         GarboButton(
                           text: 'Enviar',
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
-                              log('Name: ${_nameController.text}');
-                              log('Email: ${_emailController.text}');
-                              log('Subject: ${_subjectController.text}');
-                              log('Message: ${_messageController.text}');
+                              _sendEmail();
                             } else {
                               log('Form is invalid');
                             }
@@ -143,7 +146,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
                                         MapsLauncher.launchCoordinates(
                                           storeLocationCoordinates.values.first,
                                           storeLocationCoordinates.values.last,
-                                        ),
+                                        ).whenComplete(() => FirebaseAnalytics.instance.logEvent(name: 'store_location_opened')),
                                     child: const Text(
                                       'Ver no mapa',
                                       style: TextStyle(

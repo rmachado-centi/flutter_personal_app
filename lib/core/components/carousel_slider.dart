@@ -25,6 +25,7 @@ class _GarboSliderState extends State<GarboSlider> {
             return Column(
               children: [
                 Container(
+
                   width: double.infinity,
                   color: Colors.white,
                   child: Row(
@@ -78,7 +79,7 @@ class _GarboSliderState extends State<GarboSlider> {
           ),
         ),
         Positioned(
-          bottom: 15,
+          bottom: 16,
           width: size.width,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,

@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:app/core/blocs/application_state.dart';
 import 'package:app/core/blocs/cubit_factory.dart';
 import 'package:app/features/reset_password/presentation/business_components/cubit/reset_password_cubit.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -25,11 +28,11 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
       resetPasswordCubit.updatePassword(widget.code, newPassword);
       // Call the updatePassword method of the AuthUseCase
       // to update the user's password in Firebase Authentication
-
       // Show success message or navigate to a confirmation screen
     } else {
       // Show error message for invalid or mismatched passwords
-      print('Passwords do not match or are invalid.');
+      FirebaseAnalytics.instance.logEvent(name: 'reset_password_error');
+      log('Reset password error.');
     }
   }
 
@@ -38,8 +41,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
     return BlocConsumer<ResetPasswordCubit, ApplicationState>(
       bloc: resetPasswordCubit,
       listener: (context, state) {
-        // TODO: implement listener
         if (state is ResetPasswordSuccessState) {
+          FirebaseAnalytics.instance.logEvent(name: 'reset_password_success');
+
           Navigator.of(context).pop(true);
         }
       },

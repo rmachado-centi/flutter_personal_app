@@ -25,7 +25,7 @@ class InputFields extends StatelessWidget {
             GarboInputField(
               key: const Key('usernameField'),
               inputController: usernameController,
-              labelText: "Username",
+              labelText: "Nome de utilizador",
               inputFieldType: InputFieldType.username,
             ),
           GarboInputField(
@@ -37,7 +37,7 @@ class InputFields extends StatelessWidget {
           GarboInputField(
             key: const Key('passwordField'),
             inputController: passwordController,
-            labelText: "Password",
+            labelText: "Senha",
             inputFieldType: InputFieldType.password,
           ),
         ],
