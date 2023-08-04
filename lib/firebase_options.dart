@@ -54,7 +54,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyCbvVk6FIkpxnu5NPeqgDi5RUuLTuMEEUk',
-    appId: '1:274740696932:android:c239e53ddf5f693e44cc71',
+    appId: '1:274740696932:android:6aad60936b7da6c844cc71',
     messagingSenderId: '274740696932',
     projectId: 'garbo-dcb3a',
     storageBucket: 'garbo-dcb3a.appspot.com',

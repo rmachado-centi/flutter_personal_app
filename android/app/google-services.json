@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:274740696932:android:c239e53ddf5f693e44cc71",
+        "mobilesdk_app_id": "1:274740696932:android:6aad60936b7da6c844cc71",
         "android_client_info": {
-          "package_name": "com.example.app"
+          "package_name": "com.garbo.Garbo"
         }
       },
       "oauth_client": [
