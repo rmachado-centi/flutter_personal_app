@@ -1,10 +1,13 @@
 import 'package:app/core/navigator/application_routes.dart';
+import 'package:app/features/cart/presentation/user_interfaces/cart_ui.dart';
 import 'package:app/features/contacts/presentation/user_interfaces/contacts_screen.dart';
 import 'package:app/features/forgot_password/presentation/user_interfaces/forgot_password_screen.dart';
 import 'package:app/features/home/presentation/user_interfaces/home_screen.dart';
 import 'package:app/features/auth/presentation/user_interfaces/login_screen.dart';
 import 'package:app/features/auth/presentation/user_interfaces/registration_screen.dart';
 import 'package:app/features/about_us/about_us_screen.dart';
+import 'package:app/features/orders/presentation/user_interfaces/orders_ui.dart';
+import 'package:app/features/payment/presentation/user_interfaces/payment_ui.dart';
 import 'package:app/features/reset_password/presentation/user_interfaces/reset_password_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -55,6 +58,18 @@ class RouterNavigator {
             code: code,
           ),
           settings: settings,
+        );
+      case ApplicationRoutes.cartScreen:
+        return MaterialPageRoute(
+          builder: (_) => const CartUI(),
+        );
+      case ApplicationRoutes.ordersScreen:
+        return MaterialPageRoute(
+          builder: (_) => const OrdersUI(),
+        );
+      case ApplicationRoutes.paymentScreen:
+        return MaterialPageRoute(
+          builder: (_) => const PaymentUI(),
         );
       default:
         return MaterialPageRoute(

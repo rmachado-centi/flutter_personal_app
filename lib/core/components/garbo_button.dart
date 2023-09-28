@@ -19,6 +19,10 @@ class GarboButton extends StatelessWidget {
           onPressed: onPressed,
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.cyan,
+            shape: RoundedRectangleBorder(
+              side: BorderSide.none,
+              borderRadius: BorderRadius.circular(20),
+            ),
             textStyle: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
