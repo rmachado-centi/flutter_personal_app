@@ -128,7 +128,8 @@ class _CartUIState extends State<CartUI> {
           padding: const EdgeInsets.symmetric(vertical: 16.0),
           child: GarboButton(
             onPressed: () {
-              Navigator.of(context).pushNamed(ApplicationRoutes.paymentScreen);
+              Navigator.of(context).pushNamed(ApplicationRoutes.paymentScreen,
+                  arguments: cartItems);
             },
             text: 'Pagamento',
           ),

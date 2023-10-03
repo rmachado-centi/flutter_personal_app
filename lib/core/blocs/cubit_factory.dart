@@ -58,5 +58,7 @@ class CubitFactory {
         ),
       );
 
-  static PaymentCubit get paymentCubit => PaymentCubit();
+  static PaymentCubit get paymentCubit => PaymentCubit(
+      cartUseCase: CartUseCaseImpl(
+          cartRepository: CartRepositoryImpl(firebaseAuth: _firebaseAuth)));
 }

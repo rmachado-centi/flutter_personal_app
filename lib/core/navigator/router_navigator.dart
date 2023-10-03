@@ -1,3 +1,4 @@
+import 'package:app/core/data/models/cart/cart_item_model.dart';
 import 'package:app/core/navigator/application_routes.dart';
 import 'package:app/features/cart/presentation/user_interfaces/cart_ui.dart';
 import 'package:app/features/contacts/presentation/user_interfaces/contacts_screen.dart';
@@ -68,8 +69,11 @@ class RouterNavigator {
           builder: (_) => const OrdersUI(),
         );
       case ApplicationRoutes.paymentScreen:
+        final items = args as List<CartItemModel>;
         return MaterialPageRoute(
-          builder: (_) => const PaymentUI(),
+          builder: (_) => PaymentUI(
+            items: items,
+          ),
         );
       default:
         return MaterialPageRoute(
