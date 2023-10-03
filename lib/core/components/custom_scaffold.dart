@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 
 class CustomScaffold extends StatelessWidget {
   final Key? scaffoldKey;
-  final String title;
+  final EdgeInsets? padding;
+  final String? title;
   final Widget body;
   final Drawer? drawer;
   final Widget? leading;
@@ -12,7 +13,8 @@ class CustomScaffold extends StatelessWidget {
   const CustomScaffold({
     Key? key,
     this.scaffoldKey,
-    required this.title,
+    this.padding,
+    this.title,
     required this.body,
     this.leading,
     this.actions,
@@ -37,19 +39,22 @@ class CustomScaffold extends StatelessWidget {
                   color: Colors.amber[800],
                 ),
               ),
-          title: Text(
-            title,
-            style: TextStyle(
-              color: Colors.black54,
-              fontWeight: FontWeight.bold,
-              fontStyle: FontStyle.italic,
-            ),
-          ),
+          title: title != null
+              ? Text(
+                  title!,
+                  style: TextStyle(
+                    color: Colors.black54,
+                    fontWeight: FontWeight.bold,
+                    fontStyle: FontStyle.italic,
+                  ),
+                )
+              : null,
           centerTitle: true,
           actions: actions,
         ),
         body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
+          padding:
+              padding ?? const EdgeInsets.symmetric(horizontal: defaultPadding),
           child: body,
         ),
       ),

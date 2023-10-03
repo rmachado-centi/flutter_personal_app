@@ -22,9 +22,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final GlobalKey<ScaffoldState> _key = GlobalKey();
   final homeCubit = CubitFactory.homeCubit;
-  final ScrollController _controller = ScrollController();
-  final double _bottomNavBarHeight = 72;
-  late final ScrollListener _model;
   final items = List<Item>.generate(
     10,
     (index) => Item(
@@ -46,7 +43,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     WidgetsFlutterBinding.ensureInitialized();
-    _model = ScrollListener.initialise(_controller);
     getUserData();
     homeCubit.updateCartTotalItems();
     super.initState();
@@ -54,8 +50,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void dispose() {
-    _controller.dispose();
-    _model.dispose();
     super.dispose();
   }
 
@@ -90,10 +84,12 @@ class _HomeScreenState extends State<HomeScreen> {
         if (state is HomeUserDataSuccessState) {
           user = state.user;
         }
-
+        if (state is HomeGetTotalCartItemsState) {
+          _totalCartItems = state.num;
+        }
         return CustomScaffold(
           scaffoldKey: _key,
-          title: 'Garbo',
+          padding: const EdgeInsets.all(0),
           drawer: Drawer(
               // Add a ListView to the drawer. This ensures the user can scroll
               // through the options in the drawer if there isn't enough vertical
@@ -116,61 +112,33 @@ class _HomeScreenState extends State<HomeScreen> {
               child: _shoppingCartBadge(),
             ),
           ],
-          body: AnimatedBuilder(
-              animation: _model,
-              builder: (BuildContext context, child) {
-                return Stack(
-                  children: [
-                    GridView.builder(
-                      controller: _controller,
-                      gridDelegate:
-                          const SliverGridDelegateWithMaxCrossAxisExtent(
-                        maxCrossAxisExtent: 180,
-                        crossAxisSpacing: 20,
-                        childAspectRatio: 0.4 / 0.6,
-                        mainAxisSpacing: 20,
-                      ),
-                      itemBuilder: (context, index) {
-                        var item = items[index];
-                        return ItemCard(
-                          item: item,
-                          onPressed: () {
-                            homeCubit.addToCart(item);
-                          },
-                        );
+          body: Column(
+            children: [
+              Expanded(
+                child: GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    childAspectRatio: 0.5,
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 0,
+                    mainAxisSpacing: 0,
+                  ),
+                  itemBuilder: (context, index) {
+                    var item = items[index];
+                    return ItemCard(
+                      item: item,
+                      onAddToCartPressed: () {
+                        homeCubit.addToCart(item);
                       },
-                      itemCount: items.length,
-                    ),
-                    Positioned(
-                      left: 0,
-                      right: 0,
-                      bottom: _model.bottom,
-                      child: _bottomNavBar,
-                    )
-                  ],
-                );
-              }),
+                      onAddToFavoritesPressed: () {},
+                    );
+                  },
+                  itemCount: items.length,
+                ),
+              ),
+            ],
+          ),
         );
       },
-    );
-  }
-
-  Widget get _bottomNavBar {
-    return Container(
-      padding: const EdgeInsets.only(bottom: 16),
-      height: _bottomNavBarHeight,
-      child: ElevatedButton(
-        onPressed: () {},
-        style: ElevatedButton.styleFrom(
-          padding: const EdgeInsets.all(8),
-          shape: const CircleBorder(side: BorderSide.none),
-          backgroundColor: Colors.amber[800],
-        ),
-        child: const Icon(
-          Icons.filter_list,
-          size: 36,
-        ),
-      ),
     );
   }
 
@@ -191,9 +159,9 @@ class _HomeScreenState extends State<HomeScreen> {
         badgeStyle: badges.BadgeStyle(
           shape: badges.BadgeShape.circle,
           badgeColor: Colors.amber,
-          padding: EdgeInsets.all(6),
+          padding: const EdgeInsets.all(6),
           borderRadius: BorderRadius.circular(4),
-          borderSide: BorderSide(color: Colors.white, width: 2),
+          borderSide: const BorderSide(color: Colors.white, width: 2),
           elevation: 0,
         ),
         child: Icon(
