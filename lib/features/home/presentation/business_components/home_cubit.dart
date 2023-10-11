@@ -23,8 +23,7 @@ class HomeCubit extends Cubit<ApplicationState> {
       final totalItems = await _homeUseCase.getCartTotalItems();
       emit(HomeGetTotalCartItemsState(num: totalItems));
     } on Exception catch (e) {
-
-      print('Error: $e');
+      log('Error: $e');
     }
   }
 

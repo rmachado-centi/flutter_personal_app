@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:app/core/blocs/application_state.dart';
 import 'package:app/core/data/models/cart/cart_item_model.dart';

@@ -3,7 +3,6 @@ import 'package:app/core/blocs/cubit_factory.dart';
 import 'package:app/core/components/custom_scaffold.dart';
 import 'package:app/core/data/models/item/item_model.dart';
 import 'package:app/core/data/models/user_model.dart';
-import 'package:app/core/utils/scroll_listener.dart';
 import 'package:app/features/home/presentation/business_components/home_cubit.dart';
 import 'package:app/core/navigator/application_routes.dart';
 import 'package:app/features/home/presentation/components/drawer_body.dart';

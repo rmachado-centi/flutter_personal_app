@@ -75,12 +75,12 @@ class _SplashScreenState extends State<SplashScreen> {
           });
         }
       },
-      child: Scaffold(
+      child: const Scaffold(
         backgroundColor: Colors.white, // Set your desired background color
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
+            children: [
               Text(
                 'Garbo',
                 style: TextStyle(

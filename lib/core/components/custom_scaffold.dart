@@ -42,7 +42,7 @@ class CustomScaffold extends StatelessWidget {
           title: title != null
               ? Text(
                   title!,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.black54,
                     fontWeight: FontWeight.bold,
                     fontStyle: FontStyle.italic,
